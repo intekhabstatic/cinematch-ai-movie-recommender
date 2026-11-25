@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineRec AI — Intelligent ML Movie Recommender</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Main Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand" id="brandHome">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CineMatch<span class="gradient-text">.AI</span></span>
+          <span class="brand-badge">ML Engine</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="nav-btn" id="btnHowItWorks" title="How the ML model works">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>How It Works</span>
+        </button>
+        <a href="/docs" target="_blank" class="nav-btn" title="Open FastAPI Interactive Swagger Docs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>API Docs</span>
+        </a>
+        <button class="icon-btn" id="btnSettings" title="Poster & API Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+        <button class="icon-btn" id="btnThemeToggle" title="Toggle Light/Dark Theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="main-content">
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Content-Based Cosine Similarity • 4,800+ Movies Indexed</span>
+      </div>
+      <h1 class="hero-title">
+        Discover Movies You'll <span class="gradient-text">Actually Love</span>
+      </h1>
+      <p class="hero-subtitle">
+        Powered by high-dimensional vector representations of plot storylines, genres, keywords, cast ensembles, and directors.
+      </p>
+
+      <!-- Search Box with Live Autocomplete -->
+      <div class="search-wrapper">
+        <div class="search-bar-container">
+          <div class="search-input-group">
+            <div class="search-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <input 
+              type="text" 
+              id="movieSearchInput" 
+              placeholder="Search by title (e.g., Inception, The Dark Knight, Avatar...)" 
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button id="clearSearchBtn" class="clear-btn" title="Clear input" style="display:none;">&times;</button>
+          </div>
+          <div class="search-buttons">
+            <button class="primary-btn" id="btnRecommend">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>Recommend</span>
+            </button>
+            <button class="secondary-btn" id="btnRandom" title="Pick a random film">
+              <svg class="dice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><circle cx="15.5" cy="15.5" r="1.5"></circle><circle cx="15.5" cy="8.5" r="1.5"></circle><circle cx="8.5" cy="15.5" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle></svg>
+              <span>Surprise Me</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Autocomplete Dropdown List -->
+        <div class="autocomplete-dropdown" id="autocompleteDropdown" style="display:none;"></div>
+      </div>
+
+      <!-- Controls & Quick Presets -->
+      <div class="hero-controls">
+        <div class="count-selector">
+          <label for="recCountSelect">Show:</label>
+          <div class="count-pills" id="countPills">
+            <button class="count-pill" data-n="5">5</button>
+            <button class="count-pill active" data-n="8">8</button>
+            <button class="count-pill" data-n="12">12</button>
+            <button class="count-pill" data-n="18">18</button>
+          </div>
+        </div>
+
+        <div class="preset-chips">
+          <span class="preset-label">Popular Picks:</span>
+          <div class="chip-scroll">
+            <button class="chip-btn" data-movie="Inception">Inception</button>
+            <button class="chip-btn" data-movie="The Dark Knight">The Dark Knight</button>
+            <button class="chip-btn" data-movie="Interstellar">Interstellar</button>
+            <button class="chip-btn" data-movie="Avatar">Avatar</button>
+            <button class="chip-btn" data-movie="The Matrix">The Matrix</button>
+            <button class="chip-btn" data-movie="Pulp Fiction">Pulp Fiction</button>
+            <button class="chip-btn" data-movie="The Avengers">The Avengers</button>
+            <button class="chip-btn" data-movie="Fight Club">Fight Club</button>
+            <button class="chip-btn" data-movie="Titanic">Titanic</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status / Notification Banner -->
+    <div id="statusBanner" class="status-banner" style="display:none;"></div>
+
+    <!-- Active Searched Movie Spotlight -->
+    <section id="sourceSpotlight" class="source-spotlight" style="display:none;">
+      <div class="spotlight-card">
+        <div class="spotlight-poster" id="spotlightPoster"></div>
+        <div class="spotlight-info">
+          <div class="spotlight-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Based on your selection</span>
+          </div>
+          <h2 class="spotlight-title" id="spotlightTitle">Movie Title</h2>
+          <div class="spotlight-meta" id="spotlightMeta"></div>
+          <div class="spotlight-genres" id="spotlightGenres"></div>
+          <p class="spotlight-tagline" id="spotlightTagline"></p>
+          <p class="spotlight-overview" id="spotlightOverview"></p>
+          <div class="spotlight-credits" id="spotlightCredits"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section class="results-section" id="resultsSection">
+      <div class="section-header" id="sectionHeader" style="display:none;">
+        <div class="section-title-wrap">
+          <h2 class="section-title">Similar Recommended Movies</h2>
+          <span class="results-count-badge" id="resultsCountBadge">0 found</span>
+        </div>
+        <div class="section-subtitle">Ranked by cosine similarity across vector-embedded metadata</div>
+      </div>
+
+      <!-- Card Grid Container -->
+      <div class="movie-grid" id="movieGrid"></div>
+
+      <!-- Initial Exploration Cards (Shown on fresh load) -->
+      <div id="initialExploreView" class="initial-explore">
+        <div class="explore-header">
+          <h3>Explore Featured Movies</h3>
+          <p>Click any movie card to instantly compute its ML recommendations</p>
+        </div>
+        <div class="featured-grid" id="featuredGrid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading cinema catalog...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Movie Details Modal -->
+  <div class="modal-backdrop" id="movieModal" style="display:none;">
+    <div class="modal-card">
+      <button class="modal-close" id="btnModalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- How It Works Modal -->
+  <div class="modal-backdrop" id="howItWorksModal" style="display:none;">
+    <div class="modal-card modal-large">
+      <button class="modal-close" id="btnHowClose">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon">🧠</div>
+        <h2>Machine Learning Recommendation Architecture</h2>
+      </div>
+      <div class="modal-body ml-explainer">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Data Engineering & Feature Extraction</h4>
+            <p>We process the TMDB 5,000 dataset, combining critical attributes into a unified textual metadata tag:</p>
+            <code>Tags = Plot Overview + Top 3 Genres + Keywords + Top 3 Cast Members + Director</code>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>NLP Vector Space Representation</h4>
+            <p>Words are stemmed (PorterStemmer) and converted into a 5,000-dimensional vector space using <strong>CountVectorizer</strong> / TF-IDF, filtering out common stop words.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Cosine Similarity Matrix</h4>
+            <p>Instead of Euclidean distance, cosine similarity measures the angle between movie vectors:</p>
+            <div class="math-box">
+              $$\text{Similarity}(A, B) = \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}$$
+            </div>
+            <p>A score of 1.0 indicates identical content tags, while 0.0 indicates completely unrelated films.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4>Real-time Top-N Inference</h4>
+            <p>When you query a movie, the FastAPI server accesses precomputed row similarity vectors and returns the top \(N\) closest neighbors in under 10 milliseconds!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal (TMDB API Key & Poster Preferences) -->
+  <div class="modal-backdrop" id="settingsModal" style="display:none;">
+    <div class="modal-card">
+      <button class="modal-close" id="btnSettingsClose">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon">⚙️</div>
+        <h2>Settings & Poster Customization</h2>
+      </div>
+      <div class="modal-body settings-body">
+        <div class="form-group">
+          <label for="tmdbApiKeyInput">TMDB API Key (Optional)</label>
+          <p class="form-help">Enter your free TMDB API key to fetch high-resolution studio posters. If empty, the app uses its built-in cinematic SVG poster art generator.</p>
+          <input type="text" id="tmdbApiKeyInput" placeholder="e.g., 8265bd167963d7ff..." />
+        </div>
+        <div class="form-actions">
+          <button class="primary-btn" id="btnSaveSettings">Save Preferences</button>
+          <button class="secondary-btn" id="btnClearApiKey">Clear Key</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>CineMatch AI • Machine Learning Movie Recommendation System</p>
+      <div class="footer-meta">
+        <span>FastAPI + NumPy + Scikit-Learn</span>
+        <span>•</span>
+        <a href="/docs" target="_blank">Interactive Swagger Docs</a>
+        <span>•</span>
+        <a href="/Cinema" target="_blank">Health Check</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
