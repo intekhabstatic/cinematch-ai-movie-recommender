@@ -28,6 +28,17 @@ docker run --rm -p 8000:8000 cinematch-ai
 
 The model files are included in the image, so it will be large. For hosted deployments, make sure the service has enough memory to load the similarity matrix and configure the model files as available storage.
 
+## Deploy to a public URL with Render
+
+The repository includes `render.yaml` for a Render Blueprint deployment:
+
+1. Sign in to Render and connect your GitHub account.
+2. Choose **New > Blueprint**, then select `intekhabstatic/movie_recommendation_system`.
+3. Review the `cinematch-ai` web service and deploy it. The Dockerfile reads Render's assigned `PORT` and binds to `0.0.0.0`.
+4. Wait for the deploy to finish, then open the `onrender.com` URL shown in the service dashboard. Confirm `/Cinema` responds with `status: ok` and `movies_loaded: 4806`.
+
+Render's free web services sleep after 15 minutes without traffic and can take about a minute to wake. The free plan has 512 MB RAM; if the model fails to load or the service restarts, check the deploy logs and select a larger plan.
+
 ## Features
 
 - Live movie title search and autocomplete

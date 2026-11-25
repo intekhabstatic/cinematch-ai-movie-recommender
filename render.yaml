@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cinematch-ai
+    runtime: docker
+    plan: free
+    healthCheckPath: /Cinema
+    autoDeploy: true
